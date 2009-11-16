@@ -10,6 +10,7 @@ class TestDemographic < Test::Unit::TestCase
   def test_add_checkbox
     demographic = Mosaic::Lyris::Demographic.add 1, :checkbox, 'new checkbox', :enabled => true
     assert_not_nil demographic
+    assert_equal 1, demographic.list_id
     assert_equal 12345, demographic.id
     assert_equal :checkbox, demographic.type
     assert_equal 'new checkbox', demographic.name
@@ -19,6 +20,7 @@ class TestDemographic < Test::Unit::TestCase
   def test_add_date
     demographic = Mosaic::Lyris::Demographic.add 1, :date, 'new date', :enabled => true
     assert_not_nil demographic
+    assert_equal 1, demographic.list_id
     assert_equal 12345, demographic.id
     assert_equal :date, demographic.type
     assert_equal 'new date', demographic.name
@@ -28,6 +30,7 @@ class TestDemographic < Test::Unit::TestCase
   def test_add_multiple_checkbox
     demographic = Mosaic::Lyris::Demographic.add 1, :multiple_checkbox, 'new multiple checkbox', :options => %w(one two three four five), :enabled => true
     assert_not_nil demographic
+    assert_equal 1, demographic.list_id
     assert_equal 12345, demographic.id
     assert_equal :multiple_checkbox, demographic.type
     assert_equal 'new multiple checkbox', demographic.name
@@ -38,6 +41,7 @@ class TestDemographic < Test::Unit::TestCase
   def test_add_multiple_select_list
     demographic = Mosaic::Lyris::Demographic.add 1, :multiple_select_list, 'new multiple select list', :options => %w(one two three four five six seven eight nine ten), :size => 4, :enabled => true
     assert_not_nil demographic
+    assert_equal 1, demographic.list_id
     assert_equal 12345, demographic.id
     assert_equal :multiple_select_list, demographic.type
     assert_equal 'new multiple select list', demographic.name
@@ -49,6 +53,7 @@ class TestDemographic < Test::Unit::TestCase
   def test_add_radio_button
     demographic = Mosaic::Lyris::Demographic.add 1, :radio_button, 'new radio button', :options => %w(one two three), :enabled => true
     assert_not_nil demographic
+    assert_equal 1, demographic.list_id
     assert_equal 12345, demographic.id
     assert_equal :radio_button, demographic.type
     assert_equal 'new radio button', demographic.name
@@ -59,6 +64,7 @@ class TestDemographic < Test::Unit::TestCase
   def test_add_select_list
     demographic = Mosaic::Lyris::Demographic.add 1, :select_list, 'new select list', :options => %w(one two three four five six seven eight), :size => 4, :enabled => true
     assert_not_nil demographic
+    assert_equal 1, demographic.list_id
     assert_equal 12345, demographic.id
     assert_equal :select_list, demographic.type
     assert_equal 'new select list', demographic.name
@@ -70,6 +76,7 @@ class TestDemographic < Test::Unit::TestCase
   def test_add_text
     demographic = Mosaic::Lyris::Demographic.add 1, :text, 'new text', :enabled => true
     assert_not_nil demographic
+    assert_equal 1, demographic.list_id
     assert_equal 12345, demographic.id
     assert_equal :text, demographic.type
     assert_equal 'new text', demographic.name
@@ -79,6 +86,7 @@ class TestDemographic < Test::Unit::TestCase
   def test_add_textarea
     demographic = Mosaic::Lyris::Demographic.add 1, :textarea, 'new textarea', :enabled => true
     assert_not_nil demographic
+    assert_equal 1, demographic.list_id
     assert_equal 12345, demographic.id
     assert_equal :textarea, demographic.type
     assert_equal 'new textarea', demographic.name
@@ -120,6 +128,7 @@ class TestDemographic < Test::Unit::TestCase
     assert_not_nil demographics
     assert_equal 16, demographics.size
     demographics.each_with_index do |d,i|
+      assert_equal 1, d.list_id
       assert_equal [(1..8).to_a,(11..18).to_a].flatten[i], d.id
       assert_equal [:checkbox, :date, :multiple_checkbox, :multiple_select_list, :radio_button, :select_list, :text, :textarea, :checkbox, :date, :multiple_checkbox, :multiple_select_list, :radio_button, :select_list, :text, :textarea][i], d.type
       assert_equal ['enabled checkbox', 'enabled date', 'enabled multiple checkbox', 'enabled multiple select list', 'enabled radio button', 'enabled select list', 'enabled text', 'enabled textarea', 'disabled checkbox', 'disabled date', 'disabled multiple checkbox', 'disabled multiple select list', 'disabled radio button', 'disabled select list', 'disabled text', 'disabled textarea'][i], d.name
@@ -135,6 +144,7 @@ class TestDemographic < Test::Unit::TestCase
     assert_not_nil demographics
     assert_equal 9, demographics.size
     demographics.each_with_index do |d,i|
+      assert_equal 1, d.list_id
       assert_equal i, d.id
       assert_equal [:email, :checkbox, :date, :multiple_checkbox, :multiple_select_list, :radio_button, :select_list, :text, :textarea, :checkbox, :date, :multiple_checkbox, :multiple_select_list, :radio_button, :select_list, :text, :textarea][i], d.type
       assert_equal ['EMAIL_ADDRESS', 'enabled checkbox', 'enabled date', 'enabled multiple checkbox', 'enabled multiple select list', 'enabled radio button', 'enabled select list', 'enabled text', 'enabled textarea'][i], d.name
@@ -150,6 +160,7 @@ class TestDemographic < Test::Unit::TestCase
     assert_not_nil demographics
     assert_equal 8, demographics.size
     demographics.each_with_index do |d,i|
+      assert_equal 1, d.list_id
       assert_equal i+1, d.id
       assert_equal [:checkbox, :date, :multiple_checkbox, :multiple_select_list, :radio_button, :select_list, :text, :textarea][i], d.type
       assert_equal ['enabled checkbox', 'enabled date', 'enabled multiple checkbox', 'enabled multiple select list', 'enabled radio button', 'enabled select list', 'enabled text', 'enabled textarea'][i], d.name

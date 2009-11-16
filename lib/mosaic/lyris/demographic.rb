@@ -33,6 +33,7 @@ module Mosaic
             new :enabled => ([:enabled, :enabled_details].include?(what) || get_boolean_data(record, 'state', 'enabled')),
                 :group => get_data(record, "group"),
                 :id => get_integer_data(record, 'id'),
+                :list_id => list_id,
                 :name => get_data(record, 'name'),
                 :options => (record.at("/DATA[@type='option']") && record.search("/DATA[@type='option']").collect { |option| option.html }),
                 :size => get_integer_data(record, 'size'),
