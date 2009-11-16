@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<DATASET><TYPE>success</TYPE>
+<RECORD><DATA type="name">enabled checkbox</DATA><DATA type="id">1</DATA><DATA type="type">Checkbox</DATA><DATA type="group">Custom</DATA><DATA type="state">enabled</DATA></RECORD>
+<RECORD><DATA type="name">enabled date</DATA><DATA type="id">2</DATA><DATA type="type">Date</DATA><DATA type="group">Custom</DATA><DATA type="state">enabled</DATA></RECORD>
+<RECORD><DATA type="name">enabled multiple checkbox</DATA><DATA type="id">3</DATA><DATA type="type">Multiple Checkbox</DATA><DATA type="group">Custom</DATA><DATA type="state">enabled</DATA></RECORD>
+<RECORD><DATA type="name">enabled multiple select list</DATA><DATA type="id">4</DATA><DATA type="type">Multiple Select List</DATA><DATA type="group">Custom</DATA><DATA type="state">enabled</DATA></RECORD>
+<RECORD><DATA type="name">enabled radio button</DATA><DATA type="id">5</DATA><DATA type="type">Radio Button</DATA><DATA type="group">Custom</DATA><DATA type="state">enabled</DATA></RECORD>
+<RECORD><DATA type="name">enabled select list</DATA><DATA type="id">6</DATA><DATA type="type">Select List</DATA><DATA type="group">Custom</DATA><DATA type="state">enabled</DATA></RECORD>
+<RECORD><DATA type="name">enabled text</DATA><DATA type="id">7</DATA><DATA type="type">Text</DATA><DATA type="group">Custom</DATA><DATA type="state">enabled</DATA></RECORD>
+<RECORD><DATA type="name">enabled textarea</DATA><DATA type="id">8</DATA><DATA type="type">Textarea</DATA><DATA type="group">Custom</DATA><DATA type="state">enabled</DATA></RECORD>
+<RECORD><DATA type="name">disabled checkbox</DATA><DATA type="id">11</DATA><DATA type="type">Checkbox</DATA><DATA type="group">Custom</DATA><DATA type="state">disabled</DATA></RECORD>
+<RECORD><DATA type="name">disabled date</DATA><DATA type="id">12</DATA><DATA type="type">Date</DATA><DATA type="group">Custom</DATA><DATA type="state">disabled</DATA></RECORD>
+<RECORD><DATA type="name">disabled multiple checkbox</DATA><DATA type="id">13</DATA><DATA type="type">Multiple Checkbox</DATA><DATA type="group">Custom</DATA><DATA type="state">disabled</DATA></RECORD>
+<RECORD><DATA type="name">disabled multiple select list</DATA><DATA type="id">14</DATA><DATA type="type">Multiple Select List</DATA><DATA type="group">Custom</DATA><DATA type="state">disabled</DATA></RECORD>
+<RECORD><DATA type="name">disabled radio button</DATA><DATA type="id">15</DATA><DATA type="type">Radio Button</DATA><DATA type="group">Custom</DATA><DATA type="state">disabled</DATA></RECORD>
+<RECORD><DATA type="name">disabled select list</DATA><DATA type="id">16</DATA><DATA type="type">Select List</DATA><DATA type="group">Custom</DATA><DATA type="state">disabled</DATA></RECORD>
+<RECORD><DATA type="name">disabled text</DATA><DATA type="id">17</DATA><DATA type="type">Text</DATA><DATA type="group">Custom</DATA><DATA type="state">disabled</DATA></RECORD>
+<RECORD><DATA type="name">disabled textarea</DATA><DATA type="id">18</DATA><DATA type="type">Textarea</DATA><DATA type="group">Custom</DATA><DATA type="state">disabled</DATA></RECORD>
+</DATASET>

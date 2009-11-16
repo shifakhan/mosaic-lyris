@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<DATASET>
+<TYPE>success</TYPE>
+<RECORD>
+<DATA type="name" id="1">list one</DATA>
+<DATA type="messages">11</DATA>
+<DATA type="last-sent">Jan. 1, 2001</DATA>
+<DATA type="members">1,111</DATA>
+<DATA type="status">active</DATA>
+<DATA type="cache-time">2001-01-01T01:01:01+00:00</DATA>
+</RECORD>
+<RECORD>
+<DATA type="name" id="2">list two</DATA>
+<DATA type="messages">22</DATA>
+<DATA type="last-sent">Feb. 2, 2002</DATA>
+<DATA type="members">2,222</DATA>
+<DATA type="status">active</DATA>
+<DATA type="cache-time">2002-02-02T02:02:02+00:00</DATA>
+</RECORD>
+</DATASET>

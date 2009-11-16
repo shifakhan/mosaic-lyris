@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<DATASET>
+<TYPE>success</TYPE>
+<RECORD><DATA type="name">EMAIL_ADDRESS</DATA><DATA type="id">0</DATA><DATA type="type">EMAIL</DATA></RECORD>
+<RECORD><DATA type="name">enabled checkbox</DATA><DATA type="id">1</DATA><DATA type="type">Checkbox</DATA></RECORD>
+<RECORD><DATA type="name">enabled date</DATA><DATA type="id">2</DATA><DATA type="type">Date</DATA></RECORD>
+<RECORD><DATA type="name">enabled multiple checkbox</DATA><DATA type="id">3</DATA><DATA type="type">Multiple Checkbox</DATA></RECORD>
+<RECORD><DATA type="name">enabled multiple select list</DATA><DATA type="id">4</DATA><DATA type="type">Multiple Select List</DATA></RECORD>
+<RECORD><DATA type="name">enabled radio button</DATA><DATA type="id">5</DATA><DATA type="type">Radio Button</DATA></RECORD>
+<RECORD><DATA type="name">enabled select list</DATA><DATA type="id">6</DATA><DATA type="type">Select List</DATA></RECORD>
+<RECORD><DATA type="name">enabled text</DATA><DATA type="id">7</DATA><DATA type="type">Text</DATA></RECORD>
+<RECORD><DATA type="name">enabled textarea</DATA><DATA type="id">8</DATA><DATA type="type">Textarea</DATA></RECORD>
+</DATASET>
