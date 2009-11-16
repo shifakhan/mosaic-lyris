@@ -7,15 +7,6 @@ class TestDemographic < Test::Unit::TestCase
     end
   end
 
-  # checkbox
-  # date
-  # multiple checkbox
-  # multiple select list
-  # radio button
-  # select list
-  # text
-  # textarea
-
   def test_add_checkbox
     demographic = Mosaic::Lyris::Demographic.add 1, :checkbox, 'new checkbox', :enabled => true
     assert_not_nil demographic
@@ -123,18 +114,6 @@ class TestDemographic < Test::Unit::TestCase
       demographic = Mosaic::Lyris::Demographic.add 1, :select_list, 'missing options', :enabled => true
     end
   end
-
-  # def test_delete
-  #   list = Mosaic::Lyris::List.delete 12345
-  #   assert_not_nil list
-  #   assert_equal 12345, list.id
-  # end
-  #
-  # def test_delete_not_found
-  #   assert_raises Mosaic::Lyris::Error do
-  #     Mosaic::Lyris::List.delete 99999
-  #   end
-  # end
 
   def test_query_all
     demographics = Mosaic::Lyris::Demographic.query(:all, 1)
