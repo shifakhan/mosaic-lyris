@@ -26,8 +26,8 @@ module Net
     alias_method :request, :request_with_http_fixtures
 
     class << self
-      def block_requests
-        @block_requests = true
+      def block_requests(value = true)
+        @block_requests = value
       end
 
       def block_requests?
