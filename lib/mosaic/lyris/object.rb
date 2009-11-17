@@ -86,6 +86,12 @@ module Mosaic
 
         def get_time_data(record, type, attribute = nil, conditions = {})
           if data = get_data(record, type, attribute, conditions)
+            Time.parse(data)
+          end
+        end
+
+        def get_xml_time_data(record, type, attribute = nil, conditions = {})
+          if data = get_data(record, type, attribute, conditions)
             Time.xmlschema(data)
           end
         end

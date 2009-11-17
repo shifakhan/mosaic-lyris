@@ -41,7 +41,7 @@ module Mosaic
         def query(what)
           reply = post('list', query_type(what))
           reply.search('/DATASET/RECORD').collect do |record|
-            new :cache_time => get_time_data(record, 'cache-time'),
+            new :cache_time => get_xml_time_data(record, 'cache-time'),
                 :id => get_integer_data(record, 'name', :id),
                 :last_sent => get_date_data(record, 'last-sent'),
                 :members => get_integer_data(record, 'members'),
