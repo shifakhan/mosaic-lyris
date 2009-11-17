@@ -26,7 +26,7 @@ module Mosaic
             put_extra_data(request, 'state', options[:encoding])
             put_extra_data(request, 'state', 'yes') if options[:doubleoptin]
           end
-          new(options.merge(:id => reply.at('/DATASET/DATA').html.to_i, :list_id => list_id, :name => name, :type => type))
+          new(options.merge(:id => reply.at('/DATASET/DATA').html, :list_id => list_id, :email => email, :state => options[:state] || 'active', :trashed => %w(bounced unsubscribed trashed).include?(options[:state].to_s)))
         end
 
         def query(what, list_id, options = {})

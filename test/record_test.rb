@@ -1,12 +1,6 @@
 require File.join(File.dirname(__FILE__),'test_helper')
 
 class TestRecord < Test::Unit::TestCase
-  def test_bad_query
-    assert_raises ArgumentError do
-      records = Mosaic::Lyris::Record.query(:bad, 1)
-    end
-  end
-
   RECORDS = [
     { :email => 'one@one.not', :proof => true, :trashed => false, :state => 'active' },
     { :email => 'two@two.not', :proof => true, :trashed => false, :state => 'active' },
@@ -30,6 +24,30 @@ class TestRecord < Test::Unit::TestCase
     { 7 => 'unsubscribed' },
     { 7 => 'bounced' },
   ]
+
+  def test_add
+    record = Mosaic::Lyris::Record.add 1, 'new@email.not', :demographics => DEMOGRAPHICS[0]
+    assert_instance_of Mosaic::Lyris::Record, record
+    assert_equal 'abcdef1967', record.id
+    assert_equal 'new@email.not', record.email
+    assert_equal nil, record.proof
+    assert_equal false, record.trashed
+    assert_equal 'active', record.state
+    assert_equal nil, record.statedate
+    assert_equal DEMOGRAPHICS[0], record.demographics
+  end
+
+  def test_add_duplicate
+    assert_raise Mosaic::Lyris::Error do
+      record = Mosaic::Lyris::Record.add 1, 'duplicate@email.not'
+    end
+  end
+
+  def test_bad_query
+    assert_raise ArgumentError do
+      records = Mosaic::Lyris::Record.query(:bad, 1)
+    end
+  end
 
   def test_query_all
     records = Mosaic::Lyris::Record.query(:all, 1)
