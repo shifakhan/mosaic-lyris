@@ -12,13 +12,11 @@ module Mosaic
 
       class << self
         def add(list_id, type, name, options = {})
+          validate_options!(type, options)
           reply = post('demographic', 'add') do |request|
             request.MLID list_id
             put_data(request, demographic_type(type), name)
-            validate_options(type, options)
-            Array(options[:options]).each do |option|
-              put_data(request, 'option', option)
-            end
+            put_array_data(request, 'option', options[:option])
             put_data(request, 'state', 'enabled') if options[:enabled]
             put_data(request, 'size', options[:size]) if options[:size]
           end
@@ -35,7 +33,7 @@ module Mosaic
                 :id => get_integer_data(record, 'id'),
                 :list_id => list_id,
                 :name => get_data(record, 'name'),
-                :options => (record.at("/DATA[@type='option']") && record.search("/DATA[@type='option']").collect { |option| option.html }),
+                :options => get_array_data(record, 'option'),
                 :size => get_integer_data(record, 'size'),
                 :type => get_data(record, 'type').downcase.gsub(/ /,'_').to_sym
           end
@@ -52,7 +50,7 @@ module Mosaic
           "query-#{what}".gsub(/_/,'-')
         end
 
-        def validate_options(type, options)
+        def validate_options!(type, options)
           if %w(multiple_checkbox multiple_select_list radio_button select_list).include?(type.to_s)
             raise ArgumentError, "missing options for #{type.inspect} demographic" unless options[:options]
           else
