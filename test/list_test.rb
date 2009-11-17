@@ -3,7 +3,7 @@ require File.join(File.dirname(__FILE__),'test_helper')
 class TestList < Test::Unit::TestCase
   def test_add
     list = Mosaic::Lyris::List.add 'new list'
-    assert_not_nil list
+    assert_instance_of Mosaic::Lyris::List, list
     assert_equal 12345, list.id
     assert_equal 'new list', list.name
   end
@@ -22,7 +22,7 @@ class TestList < Test::Unit::TestCase
 
   def test_delete
     list = Mosaic::Lyris::List.delete 12345
-    assert_not_nil list
+    assert_instance_of Mosaic::Lyris::List, list
     assert_equal 12345, list.id
   end
 
@@ -34,13 +34,16 @@ class TestList < Test::Unit::TestCase
 
   def test_query_all
     lists = Mosaic::Lyris::List.query(:all)
-    assert_not_nil lists
+    assert_instance_of Array, lists
     assert_equal 2, lists.size
-    assert_equal [1,2], lists.collect { |l| l.id }
-    assert_equal ['list one','list two'], lists.collect { |l| l.name }
-    assert_equal [Date.new(2001,1,1),Date.new(2002,2,2)], lists.collect { |l| l.last_sent }
-    assert_equal [1111,2222], lists.collect { |l| l.members }
-    assert_equal [11,22], lists.collect { |l| l.messages }
-    assert_equal [Time.utc(2001,1,1,1,1,1,0),Time.utc(2002,2,2,2,2,2,0)], lists.collect { |l| l.cache_time }
+    lists.each_with_index do |l,i|
+      assert_instance_of Mosaic::Lyris::List, l
+      assert_equal i+1, l.id
+      assert_equal ['list one','list two'][i], l.name
+      assert_equal [Date.new(2001,1,1),Date.new(2002,2,2)][i], l.last_sent
+      assert_equal [1111,2222][i], l.members
+      assert_equal [11,22][i], l.messages
+      assert_equal [Time.utc(2001,1,1,1,1,1,0),Time.utc(2002,2,2,2,2,2,0)][i], l.cache_time
+    end
   end
 end
