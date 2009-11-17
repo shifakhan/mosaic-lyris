@@ -14,6 +14,16 @@ module Net
   end
 
   class HTTP
+    def request_with_capture(req, body = nil, &block)
+      response = request_without_capture(req, body, &block)
+      File.open(@capture_response, "w") do |file|
+        file.write response.body
+      end if @capture_response
+      response
+    end
+    alias_method :request_without_capture, :request
+    alias_method :request, :request_with_capture
+
     def request_with_http_fixtures(req, body = nil, &block)
       if response_body = self.class.response_for(req.method, req.path, req.body)
         HTTPOK.with_body(response_body)
@@ -32,6 +42,10 @@ module Net
 
       def block_requests?
         @block_requests
+      end
+
+      def capture_response(to = true)
+        @capture_response = (to == true) ? "capture.log" : to
       end
 
       def get_form_data(body)
