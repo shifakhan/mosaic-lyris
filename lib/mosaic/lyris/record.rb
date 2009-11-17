@@ -24,8 +24,8 @@ module Mosaic
             put_extra_data(request, 'trigger', 'yes') if options[:trigger]
             put_extra_data(request, 'proof', 'yes') if options[:proof]
             put_extra_data(request, 'state', options[:state])
-            put_extra_data(request, 'state', options[:encoding])
-            put_extra_data(request, 'state', 'yes') if options[:doubleoptin]
+            put_extra_data(request, 'encoding', options[:encoding])
+            put_extra_data(request, 'doubleoptin', 'yes') if options[:doubleoptin]
           end
           new(options.merge(:id => reply.at('/DATASET/DATA').html, :list_id => list_id, :email => email, :state => options[:state] || 'active', :trashed => %w(bounced unsubscribed trashed).include?(options[:state].to_s)))
         end
@@ -36,6 +36,22 @@ module Mosaic
           else
             query_all(what, list_id, options)
           end
+        end
+
+        def update(list_id, email, options = {})
+          validate_options!(options)
+          reply = post('record', 'update') do |request|
+            request.MLID list_id
+            put_data(request, 'email', email)
+            put_extra_data(request, 'new_email', options[:email])
+            put_demographic_data(request, options[:demographics])
+            put_extra_data(request, 'trigger', 'yes') if options[:trigger]
+            put_extra_data(request, 'proof', 'yes') if options[:proof]
+            put_extra_data(request, 'state', options[:state])
+            put_extra_data(request, 'encoding', options[:encoding])
+          end
+          # TODO: query full record? this is an incomplete snapshot of the updated record (ie. it only contains updated attributes/demographics)
+          new(options.merge(:id => reply.at('/DATASET/DATA').html, :list_id => list_id, :email => options[:email] || email, :state => options[:state], :trashed => options[:state] && %w(bounced unsubscribed trashed).include?(options[:state].to_s)))
         end
 
       protected

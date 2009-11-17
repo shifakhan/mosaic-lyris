@@ -49,6 +49,24 @@ class TestRecord < Test::Unit::TestCase
     end
   end
 
+  def test_update
+    Net::HTTP.block_requests false
+    record = Mosaic::Lyris::Record.update 27544, 'brent.faulkner@mosaic.com'
+    fail
+  end
+
+  def test_update_email
+    Net::HTTP.block_requests false
+    record = Mosaic::Lyris::Record.update 27544, 'brentf@unwwwired.net', :email => 'brent.faulkner@mosaic.com'
+    fail
+  end
+
+  def test_update_not_found
+    assert_raise Mosaic::Lyris::Error do
+      record = Mosaic::Lyris::Record.update 1, 'missing@email.not'
+    end
+  end
+
   def test_query_all
     records = Mosaic::Lyris::Record.query(:all, 1)
     assert_instance_of Array, records
