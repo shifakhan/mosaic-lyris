@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<DATASET>
+<TYPE>success</TYPE>
+<RECORD>
+<DATA type="email">nine@nine.not</DATA>
+<DATA type="extra" id="trashed">n</DATA>
+<DATA type="extra" id="uid">abcdef0009</DATA>
+</RECORD>
+<RECORD>
+<DATA type="email">ten@ten.not</DATA>
+<DATA type="extra" id="trashed">n</DATA>
+<DATA type="extra" id="uid">abcdef0010</DATA>
+</RECORD>
+</DATASET>

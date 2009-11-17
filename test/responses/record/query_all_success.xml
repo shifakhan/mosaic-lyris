@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<DATASET>
+<TYPE>success</TYPE>
+<RECORD>
+<DATA type="email">one@one.not</DATA>
+<DATA type="extra" id="proof">yes</DATA>
+<DATA type="extra" id="trashed">n</DATA>
+<DATA type="extra" id="uid">abcdef0001</DATA>
+<DATA type="demographic" id="1">on</DATA>
+<DATA type="demographic" id="2">01/02/03</DATA>
+<DATA type="demographic" id="3">one</DATA>
+<DATA type="demographic" id="3">three</DATA>
+<DATA type="demographic" id="4">two</DATA>
+<DATA type="demographic" id="4">four</DATA>
+<DATA type="demographic" id="5">three</DATA>
+<DATA type="demographic" id="6">six</DATA>
+<DATA type="demographic" id="7">value for every demographic</DATA>
+<DATA type="demographic" id="8">the date value in demographic 2 should be Jan 2, 2003</DATA>
+</RECORD>
+<RECORD>
+<DATA type="email">two@two.not</DATA>
+<DATA type="extra" id="proof">yes</DATA>
+<DATA type="extra" id="trashed">n</DATA>
+<DATA type="extra" id="uid">abcdef0002</DATA>
+<DATA type="demographic" id="1">on</DATA>
+<DATA type="demographic" id="2">02/22/22</DATA>
+<DATA type="demographic" id="5">three</DATA>
+<DATA type="demographic" id="6">six</DATA>
+<DATA type="demographic" id="7">no value for multiple selection demographics</DATA>
+<DATA type="demographic" id="8">the date value in demographic 2 should be Feb 22, 1922</DATA>
+</RECORD>
+<RECORD>
+<DATA type="email">three@three.not</DATA>
+<DATA type="extra" id="proof">yes</DATA>
+<DATA type="extra" id="trashed">n</DATA>
+<DATA type="extra" id="uid">abcdef0003</DATA>
+<DATA type="demographic" id="1">on</DATA>
+<DATA type="demographic" id="2">03/03/33</DATA>
+<DATA type="demographic" id="3">one</DATA>
+<DATA type="demographic" id="3">three</DATA>
+<DATA type="demographic" id="4">two</DATA>
+<DATA type="demographic" id="4">four</DATA>
+<DATA type="demographic" id="5">three</DATA>
+<DATA type="demographic" id="6">six</DATA>
+<DATA type="demographic" id="7">every attribute enabled</DATA>
+<DATA type="demographic" id="8">the date value in demographic 2 should be Mar 3, 1933</DATA>
+</RECORD>
+<RECORD>
+<DATA type="email">four@four.not</DATA>
+<DATA type="extra" id="proof">yes</DATA>
+<DATA type="extra" id="trashed">n</DATA>
+<DATA type="extra" id="uid">abcdef0004</DATA>
+</RECORD>
+<RECORD>
+<DATA type="email">five@five.not</DATA>
+<DATA type="extra" id="trashed">n</DATA>
+<DATA type="extra" id="uid">abcdef0005</DATA>
+<DATA type="demographic" id="7">active</DATA>
+</RECORD>
+<RECORD>
+<DATA type="email">six@six.not</DATA>
+<DATA type="extra" id="state">admin</DATA>
+<DATA type="extra" id="statedate">2006-06-01</DATA>
+<DATA type="extra" id="trashed">y</DATA>
+<DATA type="extra" id="uid">abcdef0006</DATA>
+<DATA type="demographic" id="7">trashed by administrator</DATA>
+</RECORD>
+<RECORD>
+<DATA type="email">seven@seven.not</DATA>
+<DATA type="extra" id="state">unsubscribed</DATA>
+<DATA type="extra" id="statedate">2007-07-01</DATA>
+<DATA type="extra" id="trashed">y</DATA>
+<DATA type="extra" id="uid">abcdef0007</DATA>
+<DATA type="demographic" id="7">unsubscribed</DATA>
+</RECORD>
+<RECORD>
+<DATA type="email">eight@eight.not</DATA>
+<DATA type="extra" id="state">bounced</DATA>
+<DATA type="extra" id="statedate">2008-08-01</DATA>
+<DATA type="extra" id="trashed">y</DATA>
+<DATA type="extra" id="uid">abcdef0008</DATA>
+<DATA type="demographic" id="7">bounced</DATA>
+</RECORD>
+<RECORD>
+<DATA type="email">nine@nine.not</DATA>
+<DATA type="extra" id="trashed">n</DATA>
+<DATA type="extra" id="uid">abcdef0009</DATA>
+</RECORD>
+<RECORD>
+<DATA type="email">ten@ten.not</DATA>
+<DATA type="extra" id="trashed">n</DATA>
+<DATA type="extra" id="uid">abcdef0010</DATA>
+</RECORD>
+</DATASET>

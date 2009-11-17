@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<DATASET>
+<TYPE>success</TYPE>
+<RECORD>
+<DATA type="email">five@five.not</DATA>
+<DATA type="extra" id="trashed">n</DATA>
+<DATA type="extra" id="uid">abcdef0005</DATA>
+<DATA type="demographic" id="7">active</DATA>
+</RECORD>
+<RECORD>
+<DATA type="email">six@six.not</DATA>
+<DATA type="extra" id="state">admin</DATA>
+<DATA type="extra" id="statedate">2006-06-01</DATA>
+<DATA type="extra" id="trashed">y</DATA>
+<DATA type="extra" id="uid">abcdef0006</DATA>
+<DATA type="demographic" id="7">trashed by administrator</DATA>
+</RECORD>
+<RECORD>
+<DATA type="email">seven@seven.not</DATA>
+<DATA type="extra" id="state">unsubscribed</DATA>
+<DATA type="extra" id="statedate">2007-07-01</DATA>
+<DATA type="extra" id="trashed">y</DATA>
+<DATA type="extra" id="uid">abcdef0007</DATA>
+<DATA type="demographic" id="7">unsubscribed</DATA>
+</RECORD>
+<RECORD>
+<DATA type="email">eight@eight.not</DATA>
+<DATA type="extra" id="state">bounced</DATA>
+<DATA type="extra" id="statedate">2008-08-01</DATA>
+<DATA type="extra" id="trashed">y</DATA>
+<DATA type="extra" id="uid">abcdef0008</DATA>
+<DATA type="demographic" id="7">bounced</DATA>
+</RECORD>
+</DATASET>
