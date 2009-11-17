@@ -6,6 +6,7 @@ module Mosaic
                   :email,
                   :encoding,
                   :id,
+                  :joindate,
                   :list_id,
                   :proof,
                   :state,
@@ -30,7 +31,17 @@ module Mosaic
         end
 
         def query(what, list_id, options = {})
-          reply = post('record', query_type(what)) do |request|
+          if /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i === what
+            query_one(what, list_id, options)
+          else
+            query_all(what, list_id, options)
+          end
+        end
+
+      protected
+        def query_all(what, list_id, options = {})
+          raise ArgumentError, "expected :all; got #{what.inspect}" unless %w(all).include?(what.to_s)
+          reply = post('record', 'query-listdata') do |request|
             request.MLID list_id
             put_extra_data(request, 'pagelimit', options[:per_page])
             put_extra_data(request, 'page', options[:page] || 1) if options[:per_page]
@@ -47,10 +58,21 @@ module Mosaic
           end
         end
 
-      protected
-        def query_type(what)
-          raise ArgumentError, "expected :all; got #{what.inspect}" unless %w(all).include?(what.to_s)
-          'query-listdata'
+        def query_one(email, list_id, options = {})
+          reply = post('record', 'query-data') do |request|
+            request.MLID list_id
+            put_data(request, 'email', email)
+          end
+          record = reply.at('/DATASET/RECORD')
+          new :demographics => get_demographic_data(record),
+              :email => get_data(record, 'extra', nil, :id => 'email'),
+              :id => get_data(record, 'extra', nil, :id => 'uid'),
+              :joindate => get_time_data(record, 'extra', nil, :id => 'joindate'),
+              :list_id => list_id,
+              :proof => get_boolean_data(record, 'extra', 'yes', nil, :id => 'proof'),
+              :state => get_data(record, 'extra', nil, :id => 'state') || 'active',
+              :statedate => get_date_data(record, 'extra', nil, :id => 'statedate'),
+              :trashed => get_boolean_data(record, 'extra', 'y', nil, :id => 'trashed')
         end
 
         def validate_options!(options)

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<DATASET>
+<TYPE>success</TYPE>
+<RECORD>
+<DATA type="extra" id="state">admin</DATA>
+<DATA type="extra" id="statedate">2009-11-17</DATA>
+<DATA type="extra" id="joindate">2002-02-12 02:02:02</DATA>
+<DATA type="extra" id="trashed">y</DATA>
+<DATA type="extra" id="uid">abcdef2222</DATA>
+<DATA type="extra" id="email">admin.trashed@email.not</DATA>
+<DATA type="demographic" id="2">02/12/82</DATA>
+<DATA type="demographic" id="7">this email is admin trashed</DATA>
+</RECORD>
+</DATASET>

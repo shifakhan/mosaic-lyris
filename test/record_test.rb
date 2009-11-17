@@ -94,4 +94,64 @@ class TestRecord < Test::Unit::TestCase
       end
     end
   end
+
+  def test_query_active_email
+    record = Mosaic::Lyris::Record.query('active@email.not', 1)
+    # Net::HTTP.block_requests false
+    # record = Mosaic::Lyris::Record.query('brentf@gto.net', 27544)
+    assert_instance_of Mosaic::Lyris::Record, record
+    assert_equal 'abcdef1111', record.id
+    assert_equal 'active@email.not', record.email
+    assert_equal true, record.proof
+    assert_equal false, record.trashed
+    assert_equal 'active', record.state
+    assert_equal Time.local(2001,1,11,1,1,1), record.joindate
+    assert_equal nil, record.statedate
+    assert_equal({ 2 => '01/11/81', 7 => 'this email is active' }, record.demographics)
+  end
+
+  def test_query_admin_trashed_email
+    record = Mosaic::Lyris::Record.query('admin.trashed@email.not', 1)
+    assert_instance_of Mosaic::Lyris::Record, record
+    assert_equal 'abcdef2222', record.id
+    assert_equal 'admin.trashed@email.not', record.email
+    assert_equal nil, record.proof
+    assert_equal true, record.trashed
+    assert_equal 'admin', record.state
+    assert_equal Time.local(2002,2,12,2,2,2), record.joindate
+    assert_equal Date.new(2009,11,17), record.statedate
+    assert_equal({ 2 => '02/12/82', 7 => 'this email is admin trashed' }, record.demographics)
+  end
+
+  def test_query_bounced_email
+    record = Mosaic::Lyris::Record.query('bounced@email.not', 1)
+    assert_instance_of Mosaic::Lyris::Record, record
+    assert_equal 'abcdef3333', record.id
+    assert_equal 'bounced@email.not', record.email
+    assert_equal nil, record.proof
+    assert_equal true, record.trashed
+    assert_equal 'bounced', record.state
+    assert_equal Time.local(2003,3,13,3,3,3), record.joindate
+    assert_equal Date.new(2009,11,17), record.statedate
+    assert_equal({ 2 => '03/13/93', 7 => 'this email is bounced' }, record.demographics)
+  end
+
+  def test_query_unsubscribed_email
+    record = Mosaic::Lyris::Record.query('unsubscribed@email.not', 1)
+    assert_instance_of Mosaic::Lyris::Record, record
+    assert_equal 'abcdef4444', record.id
+    assert_equal 'unsubscribed@email.not', record.email
+    assert_equal nil, record.proof
+    assert_equal true, record.trashed
+    assert_equal 'unsubscribed', record.state
+    assert_equal Time.local(2004,4,14,4,4,4), record.joindate
+    assert_equal Date.new(2009,11,17), record.statedate
+    assert_equal({ 2 => '04/14/94', 7 => 'this email is unsubscribed' }, record.demographics)
+  end
+
+  def test_query_email_not_found
+    assert_raise Mosaic::Lyris::Error do
+      record = Mosaic::Lyris::Record.query('missing@email.not', 1)
+    end
+  end
 end
