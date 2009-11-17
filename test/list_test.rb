@@ -9,13 +9,13 @@ class TestList < Test::Unit::TestCase
   end
 
   def test_add_duplicate
-    assert_raises Mosaic::Lyris::Error do
+    assert_raise Mosaic::Lyris::Error do
       list = Mosaic::Lyris::List.add 'duplicate list'
     end
   end
 
   def test_bad_query
-    assert_raises ArgumentError do
+    assert_raise ArgumentError do
       lists = Mosaic::Lyris::List.query(:bad)
     end
   end
@@ -27,7 +27,7 @@ class TestList < Test::Unit::TestCase
   end
 
   def test_delete_not_found
-    assert_raises Mosaic::Lyris::Error do
+    assert_raise Mosaic::Lyris::Error do
       Mosaic::Lyris::List.delete 99999
     end
   end

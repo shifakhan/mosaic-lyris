@@ -2,7 +2,7 @@ require File.join(File.dirname(__FILE__),'test_helper')
 
 class TestDemographic < Test::Unit::TestCase
   def test_add_duplicate
-    assert_raises Mosaic::Lyris::Error do
+    assert_raise Mosaic::Lyris::Error do
       demographic = Mosaic::Lyris::Demographic.add 1, :text, 'duplicate text'
     end
   end
@@ -94,31 +94,31 @@ class TestDemographic < Test::Unit::TestCase
   end
 
   def test_bad_query
-    assert_raises ArgumentError do
+    assert_raise ArgumentError do
       demographics = Mosaic::Lyris::Demographic.query(:bad, 1)
     end
   end
 
   def test_bad_type
-    assert_raises ArgumentError do
+    assert_raise ArgumentError do
       demographic = Mosaic::Lyris::Demographic.add 1, :bad, 'bad type', :enabled => true
     end
   end
 
   def test_invalid_options
-    assert_raises ArgumentError do
+    assert_raise ArgumentError do
       demographic = Mosaic::Lyris::Demographic.add 1, :text, 'invalid options', :options => %w(one two three), :enabled => true
     end
   end
 
   def test_invalid_size
-    assert_raises ArgumentError do
+    assert_raise ArgumentError do
       demographic = Mosaic::Lyris::Demographic.add 1, :text, 'invalid options', :size => 3, :enabled => true
     end
   end
 
   def test_missing_options
-    assert_raises ArgumentError do
+    assert_raise ArgumentError do
       demographic = Mosaic::Lyris::Demographic.add 1, :select_list, 'missing options', :enabled => true
     end
   end
