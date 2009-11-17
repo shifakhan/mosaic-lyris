@@ -25,14 +25,28 @@ module Mosaic
           @@password = value
         end
 
-        def get_boolean_data(record, type, value)
-          if data = get_data(record, type)
+        def get_array_data(record, type)
+          if record.at("/DATA[@type='#{type}']")
+            record.search("/DATA[@type='#{type}']").collect do |data|
+              if block_given?
+                yield data
+              else
+                data.html
+              end
+            end
+          end
+        end
+
+        def get_boolean_data(record, type, value, attribute = nil, conditions = {})
+          if data = get_data(record, type, attribute, conditions)
             data == value
           end
         end
 
-        def get_data(record, type, attribute = nil)
-          if element = record.at("/DATA[@type='#{type}']")
+        def get_data(record, type, attribute = nil, conditions = {})
+          xpath = "/DATA[@type='#{type}']"
+          xpath << conditions.collect { |a,v| "[@#{a}='#{v}']" }.join
+          if element = record.at(xpath)
             if attribute
               element[attribute]
             else
@@ -41,20 +55,37 @@ module Mosaic
           end
         end
 
-        def get_date_data(record, type, attribute = nil)
-          if data = get_data(record, type, attribute)
+        def get_date_data(record, type, attribute = nil, conditions = {})
+          if data = get_data(record, type, attribute, conditions)
             Date.parse data
           end
         end
 
-        def get_integer_data(record, type, attribute = nil)
-          if data = get_data(record, type, attribute)
+        def get_demographic_data(record)
+          if data = get_array_data(record, 'demographic') { |d| [ d[:id].to_i, d.html ] }
+            data.inject({}) do |h,(k,v)|
+              case h[k]
+              when NilClass
+                h[k] = v
+              when Array
+                h[k] << v
+              else
+                h[k] = Array(h[k])
+                h[k] << v
+              end
+              h
+            end
+          end
+        end
+
+        def get_integer_data(record, type, attribute = nil, conditions = {})
+          if data = get_data(record, type, attribute, conditions)
             data.gsub(/,/,'').to_i
           end
         end
 
-        def get_time_data(record, type, attribute = nil)
-          if data = get_data(record, type, attribute)
+        def get_time_data(record, type, attribute = nil, conditions = {})
+          if data = get_data(record, type, attribute, conditions)
             Time.xmlschema(data)
           end
         end
@@ -63,8 +94,8 @@ module Mosaic
           xml = Builder::XmlMarkup.new
           xml.instruct!
           xml.DATASET do
-            xml.DATA password, :type => 'extra', :id => 'password'
             xml.SITE_ID site_id
+            put_extra_data(xml, 'password', password)
             block.call(xml) if block
           end
           input = xml.target!
@@ -86,8 +117,22 @@ module Mosaic
           end
         end
 
+        def put_array_data(request, type, values)
+          Array(values).each do |value|
+            put_data(request, type, value)
+          end
+        end
+        
         def put_data(request, type, value, attributes = {})
           request.DATA value, {:type => type}.merge(attributes) unless value.nil?
+        end
+
+        def put_demographic_data(request, demographics)
+          Array(demographics).each do |id, value|
+            Array(value).each do |v|
+              put_data(request, 'demographic', v, :id => id)
+            end
+          end
         end
 
         def put_extra_data(request, id, value)
