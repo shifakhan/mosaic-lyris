@@ -50,13 +50,11 @@ class TestRecord < Test::Unit::TestCase
   end
 
   def test_update
-    Net::HTTP.block_requests false
     record = Mosaic::Lyris::Record.update 27544, 'brent.faulkner@mosaic.com'
     fail
   end
 
   def test_update_email
-    Net::HTTP.block_requests false
     record = Mosaic::Lyris::Record.update 27544, 'brentf@unwwwired.net', :email => 'brent.faulkner@mosaic.com'
     fail
   end
@@ -115,8 +113,6 @@ class TestRecord < Test::Unit::TestCase
 
   def test_query_active_email
     record = Mosaic::Lyris::Record.query('active@email.not', :list_id => 1)
-    # Net::HTTP.block_requests false
-    # record = Mosaic::Lyris::Record.query('brentf@gto.net', 27544)
     assert_instance_of Mosaic::Lyris::Record, record
     assert_equal 'abcdef1111', record.id
     assert_equal 'active@email.not', record.email
