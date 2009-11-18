@@ -50,13 +50,19 @@ class TestRecord < Test::Unit::TestCase
   end
 
   def test_update
-    record = Mosaic::Lyris::Record.update 'brent.faulkner@mosaic.com', :list_id => 27544
-    fail
+    record = Mosaic::Lyris::Record.update 'active@email.not', :list_id => 1, :state => 'unsubscribed'
+    assert_instance_of Mosaic::Lyris::Record, record
+    assert_equal 'abcdef1111', record.id
+    assert_equal 'active@email.not', record.email
+    assert_equal true, record.trashed
+    assert_equal 'unsubscribed', record.state
   end
 
   def test_update_email
-    record = Mosaic::Lyris::Record.update 'brentf@unwwwired.net', :list_id => 27544, :email => 'brent.faulkner@mosaic.com'
-    fail
+    record = Mosaic::Lyris::Record.update 'active@email.not', :list_id => 1, :email => 'updated@email.not'
+    assert_instance_of Mosaic::Lyris::Record, record
+    assert_equal 'abcdef1111', record.id
+    assert_equal 'updated@email.not', record.email
   end
 
   def test_update_not_found
