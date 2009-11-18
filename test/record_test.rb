@@ -26,7 +26,7 @@ class TestRecord < Test::Unit::TestCase
   ]
 
   def test_add
-    record = Mosaic::Lyris::Record.add 1, 'new@email.not', :demographics => DEMOGRAPHICS[0]
+    record = Mosaic::Lyris::Record.add 'new@email.not', :list_id => 1, :demographics => DEMOGRAPHICS[0]
     assert_instance_of Mosaic::Lyris::Record, record
     assert_equal 'abcdef1967', record.id
     assert_equal 'new@email.not', record.email
@@ -39,13 +39,13 @@ class TestRecord < Test::Unit::TestCase
 
   def test_add_duplicate
     assert_raise Mosaic::Lyris::Error do
-      record = Mosaic::Lyris::Record.add 1, 'duplicate@email.not'
+      record = Mosaic::Lyris::Record.add 'duplicate@email.not', :list_id => 1
     end
   end
 
   def test_bad_query
     assert_raise ArgumentError do
-      records = Mosaic::Lyris::Record.query(:bad, 1)
+      records = Mosaic::Lyris::Record.query(:bad, :list_id => 1)
     end
   end
 
@@ -68,7 +68,7 @@ class TestRecord < Test::Unit::TestCase
   end
 
   def test_query_all
-    records = Mosaic::Lyris::Record.query(:all, 1)
+    records = Mosaic::Lyris::Record.query(:all, :list_id => 1)
     assert_instance_of Array, records
     assert_equal 10, records.size
     records.each_with_index do |r,i|
@@ -84,7 +84,7 @@ class TestRecord < Test::Unit::TestCase
   end
 
   def test_query_all_empty
-    records = Mosaic::Lyris::Record.query(:all, 2)
+    records = Mosaic::Lyris::Record.query(:all, :list_id => 2)
     assert_instance_of Array, records
     assert_equal 0, records.size
   end
@@ -92,7 +92,7 @@ class TestRecord < Test::Unit::TestCase
   def test_query_all_paginated
     i = 0
     (1..3).each do |page|
-      records = Mosaic::Lyris::Record.query(:all, 3, :page => page, :per_page => 4)
+      records = Mosaic::Lyris::Record.query(:all, :list_id => 3, :page => page, :per_page => 4)
       assert_instance_of Array, records
       if page < 3
         assert_equal 4, records.size
@@ -114,7 +114,7 @@ class TestRecord < Test::Unit::TestCase
   end
 
   def test_query_active_email
-    record = Mosaic::Lyris::Record.query('active@email.not', 1)
+    record = Mosaic::Lyris::Record.query('active@email.not', :list_id => 1)
     # Net::HTTP.block_requests false
     # record = Mosaic::Lyris::Record.query('brentf@gto.net', 27544)
     assert_instance_of Mosaic::Lyris::Record, record
@@ -129,7 +129,7 @@ class TestRecord < Test::Unit::TestCase
   end
 
   def test_query_admin_trashed_email
-    record = Mosaic::Lyris::Record.query('admin.trashed@email.not', 1)
+    record = Mosaic::Lyris::Record.query('admin.trashed@email.not', :list_id => 1)
     assert_instance_of Mosaic::Lyris::Record, record
     assert_equal 'abcdef2222', record.id
     assert_equal 'admin.trashed@email.not', record.email
@@ -142,7 +142,7 @@ class TestRecord < Test::Unit::TestCase
   end
 
   def test_query_bounced_email
-    record = Mosaic::Lyris::Record.query('bounced@email.not', 1)
+    record = Mosaic::Lyris::Record.query('bounced@email.not', :list_id => 1)
     assert_instance_of Mosaic::Lyris::Record, record
     assert_equal 'abcdef3333', record.id
     assert_equal 'bounced@email.not', record.email
@@ -155,7 +155,7 @@ class TestRecord < Test::Unit::TestCase
   end
 
   def test_query_unsubscribed_email
-    record = Mosaic::Lyris::Record.query('unsubscribed@email.not', 1)
+    record = Mosaic::Lyris::Record.query('unsubscribed@email.not', :list_id => 1)
     assert_instance_of Mosaic::Lyris::Record, record
     assert_equal 'abcdef4444', record.id
     assert_equal 'unsubscribed@email.not', record.email
@@ -169,7 +169,7 @@ class TestRecord < Test::Unit::TestCase
 
   def test_query_email_not_found
     assert_raise Mosaic::Lyris::Error do
-      record = Mosaic::Lyris::Record.query('missing@email.not', 1)
+      record = Mosaic::Lyris::Record.query('missing@email.not', :list_id => 1)
     end
   end
 end

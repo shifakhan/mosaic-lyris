@@ -11,27 +11,27 @@ module Mosaic
                   :type
 
       class << self
-        def add(list_id, type, name, options = {})
+        def add(type, name, options = {})
           validate_options!(type, options)
           reply = post('demographic', 'add') do |request|
-            request.MLID list_id
+            request.MLID options[:list_id] if options[:list_id]
             put_data(request, demographic_type(type), name)
             put_array_data(request, 'option', options[:option])
             put_data(request, 'state', 'enabled') if options[:enabled]
             put_data(request, 'size', options[:size]) if options[:size]
           end
-          new(options.merge(:id => reply.at('/DATASET/DATA').html.to_i, :list_id => list_id, :name => name, :type => type))
+          new(options.merge(:id => reply.at('/DATASET/DATA').html.to_i, :name => name, :type => type))
         end
 
-        def query(what, list_id)
+        def query(what, options = {})
           reply = post('demographic', query_type(what)) do |request|
-            request.MLID list_id
+            request.MLID options[:list_id] if options[:list_id]
           end
           reply.search('/DATASET/RECORD').collect do |record|
             new :enabled => ([:enabled, :enabled_details].include?(what) || get_boolean_data(record, 'state', 'enabled')),
                 :group => get_data(record, "group"),
                 :id => get_integer_data(record, 'id'),
-                :list_id => list_id,
+                :list_id => options[:list_id],
                 :name => get_data(record, 'name'),
                 :options => get_array_data(record, 'option'),
                 :size => get_integer_data(record, 'size'),
