@@ -50,18 +50,18 @@ class TestRecord < Test::Unit::TestCase
   end
 
   def test_update
-    record = Mosaic::Lyris::Record.update 27544, 'brent.faulkner@mosaic.com'
+    record = Mosaic::Lyris::Record.update 'brent.faulkner@mosaic.com', :list_id => 27544
     fail
   end
 
   def test_update_email
-    record = Mosaic::Lyris::Record.update 27544, 'brentf@unwwwired.net', :email => 'brent.faulkner@mosaic.com'
+    record = Mosaic::Lyris::Record.update 'brentf@unwwwired.net', :list_id => 27544, :email => 'brent.faulkner@mosaic.com'
     fail
   end
 
   def test_update_not_found
     assert_raise Mosaic::Lyris::Error do
-      record = Mosaic::Lyris::Record.update 1, 'missing@email.not'
+      record = Mosaic::Lyris::Record.update 'missing@email.not', :list_id => 1
     end
   end
 
