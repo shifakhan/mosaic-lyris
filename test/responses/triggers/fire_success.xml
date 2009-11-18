@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<DATASET><TYPE>success</TYPE><DATA type="sent">one@email.not,two@email.not,three@email.not</DATA><DATA type="not sent">four@email.not</DATA></DATASET>
