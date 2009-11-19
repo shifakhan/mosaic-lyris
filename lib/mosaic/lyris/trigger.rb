@@ -6,7 +6,7 @@ module Mosaic
                   :id,
                   :message,
                   :not_sent,
-                  :recipient_data,
+                  :recipients_data,
                   :sent,
                   :subject
 
@@ -17,7 +17,7 @@ module Mosaic
             request.MLID options[:list_id] if options[:list_id]
             put_extra_data(request, 'trigger_id', id)
             put_extra_data(request, 'recipients', recipients.join(','))
-            put_extra_data(request, 'recipient_data', options[:recipient_data])
+            put_extra_data(request, 'recipients_data', options[:recipients_data])
             put_extra_data(request, 'subject', options[:subject])
             put_extra_data(request, 'clickthru', 'on') if options[:clickthru]
             put_extra_data(request, 'add', 'yes') if options[:add]
