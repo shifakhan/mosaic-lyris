@@ -15,6 +15,10 @@ module Mosaic
         end
       end
 
+      def to_param
+        id && id.to_s
+      end
+
     protected
       class << self
         def password
