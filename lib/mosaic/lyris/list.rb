@@ -22,6 +22,14 @@ module Mosaic
                   :reply_from_name,
                   :status
 
+      def active?
+        status == 'active'
+      end
+
+      def archived?
+        status == 'archived'
+      end
+
       class << self
         def add(name, attributes = {})
           reply = post('list', 'add') do |request|
