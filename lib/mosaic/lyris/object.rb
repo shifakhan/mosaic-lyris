@@ -82,15 +82,31 @@ module Mosaic
           end
         end
 
+        def get_element(record, element)
+          if data = record.at("/#{element}")
+            data.html
+          end
+        end
+
         def get_integer_data(record, type, attribute = nil, conditions = {})
           if data = get_data(record, type, attribute, conditions)
             data.gsub(/,/,'').to_i
           end
         end
 
+        def get_integer_element(record, element)
+          get_element(record, element).to_i
+        end
+
         def get_time_data(record, type, attribute = nil, conditions = {})
           if data = get_data(record, type, attribute, conditions)
-            Time.parse(data)
+            Time.parse(data) + (Time.zone.utc_offset - Time.zone_offset('PST'))
+          end
+        end
+
+        def get_time_element(record, element)
+          if data = get_element(record, element)
+            Time.parse(data) + (Time.zone.utc_offset - Time.zone_offset('PST'))
           end
         end
 
@@ -111,7 +127,7 @@ module Mosaic
           input = xml.target!
 
           request = Net::HTTP::Post.new("/API/mailing_list.html")
-          # $stderr.puts "REQUEST: type=#{type.inspect}, activity=#{activity.inspect}, input=#{input.inspect}"
+          $stderr.puts "REQUEST: type=#{type.inspect}, activity=#{activity.inspect}, input=#{input.inspect}"
           request.set_form_data('type' => type, 'activity' => activity, 'input' => input)
 
           conn = Net::HTTP.new(server, 443)
@@ -120,7 +136,7 @@ module Mosaic
 
           conn.start do |http|
             reply = http.request(request).body
-            # $stderr.puts "REPLY: body=#{reply.inspect}"
+            $stderr.puts "REPLY: body=#{reply.inspect}"
             document = Hpricot.XML reply
             raise Error, (document % '/DATASET/DATA').html unless document % '/DATASET/TYPE[text()=success]'
             document
