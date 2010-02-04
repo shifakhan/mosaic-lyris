@@ -126,7 +126,7 @@ module Mosaic
           input = xml.target!
 
           request = Net::HTTP::Post.new("/API/mailing_list.html")
-          $stderr.puts "REQUEST: type=#{type.inspect}, activity=#{activity.inspect}, input=#{input.inspect}"
+          # $stderr.puts "REQUEST: type=#{type.inspect}, activity=#{activity.inspect}, input=#{input.inspect}"
           request.set_form_data('type' => type, 'activity' => activity, 'input' => input)
 
           conn = Net::HTTP.new(server, 443)
@@ -135,7 +135,7 @@ module Mosaic
 
           conn.start do |http|
             reply = http.request(request).body
-            $stderr.puts "REPLY: body=#{reply.inspect}"
+            # $stderr.puts "REPLY: body=#{reply.inspect}"
             document = Hpricot.XML reply
             raise Error, (document % '/DATASET/DATA').html unless document % '/DATASET/TYPE[text()=success]'
             document
