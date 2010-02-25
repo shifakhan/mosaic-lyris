@@ -1,5 +1,7 @@
 require 'builder'
 require 'net/https'
+require 'uri'
+require 'hpricot'
 
 module Mosaic
   module Lyris
@@ -20,12 +22,20 @@ module Mosaic
 
     protected
       class << self
-        def password
-          @@password
+        def callback_url
+          @@callback_url
         end
 
-        def password=(value)
-          @@password = value
+        def callback_url=(value)
+          @@callback_url = URI.parse(value)
+        end
+
+        def default_list_id
+          @@default_list_id
+        end
+
+        def default_list_id=(value)
+          @@default_list_id = value
         end
 
         def get_array_data(record, type)
@@ -115,6 +125,14 @@ module Mosaic
           end
         end
 
+        def password
+          @@password
+        end
+
+        def password=(value)
+          @@password = value
+        end
+
         def post(type, activity, &block)
           xml = Builder::XmlMarkup.new
           xml.instruct!
@@ -178,6 +196,14 @@ module Mosaic
 
         def site_id=(value)
           @@site_id = value
+        end
+
+        def triggers
+          @@triggers
+        end
+
+        def triggers=(value)
+          @@triggers = value
         end
       end
     end
