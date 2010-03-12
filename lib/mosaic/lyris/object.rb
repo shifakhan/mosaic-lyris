@@ -27,7 +27,7 @@ module Mosaic
         end
 
         def callback_url=(value)
-          @@callback_url = URI.parse(value)
+          @@callback_url = value && URI.parse(value)
         end
 
         def default_list_id
