@@ -16,7 +16,7 @@ module Mosaic
         def fire(id, *recipients)
           options = recipients.pop if recipients.last.is_a?(Hash)
           list_id = options[:list_id] || default_list_id
-          id = lookup_trigger(id) if id.is_a?(Symbol)
+          id = lookup_trigger(id, :locale => options.delete(:locale)) if id.is_a?(Symbol)
           reply = post('triggers', 'fire-trigger') do |request|
             request.MLID list_id if list_id
             put_extra_data(request, 'trigger_id', id)
@@ -32,8 +32,9 @@ module Mosaic
           new options.merge(:id => id, :not_sent => not_sent.split(','), :sent => sent.split(','))
         end
 
-        def lookup_trigger(key)
-          locale = I18n.locale.to_s
+        def lookup_trigger(key, options = {})
+          locale = options[:locale] || I18n.locale
+          locale = locale.to_s
           key = key.to_s
           if triggers[locale] && triggers[locale][key]
             triggers[locale][key]
