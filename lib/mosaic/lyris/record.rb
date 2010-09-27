@@ -61,6 +61,7 @@ module Mosaic
             request.MLID options[:list_id] if options[:list_id]
             put_extra_data(request, 'pagelimit', options[:per_page])
             put_extra_data(request, 'page', options[:page] || 1) if options[:per_page]
+            put_extra_data(request, 'type', options[:state])
           end
           reply.search('/DATASET/RECORD').collect do |record|
             new :demographics => get_demographic_data(record),

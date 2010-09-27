@@ -60,11 +60,9 @@ module Mosaic
           xpath = "/DATA[@type='#{type}']"
           xpath << conditions.collect { |a,v| "[@#{a}='#{v}']" }.join
           if element = record.at(xpath)
-            if attribute
-              element[attribute]
-            else
-              element.html
-            end
+            data = attribute ? element[attribute] : element.html
+            # TODO: fix encoding if necessary... seems like we should need to convert to UTF-8 here, but this works for now
+            HTMLEntities.new.decode(data.gsub(/&#(\d+);/) { Integer($1).chr })
           end
         end
 
@@ -118,10 +116,24 @@ module Mosaic
           end
         end
 
+        def get_time_offset_data(record, type, attribute = nil, conditions = {})
+          if offset = get_integer_data(record, type, attribute, conditions)
+            offset + (Time.zone.utc_offset - Time.zone_offset('PST'))
+          end
+        end
+
         def get_xml_time_data(record, type, attribute = nil, conditions = {})
           if data = get_data(record, type, attribute, conditions)
             Time.xmlschema(data)
           end
+        end
+
+        def logger
+          @@logger
+        end
+
+        def logger=(logger)
+          @@logger = logger
         end
 
         def password
@@ -133,7 +145,7 @@ module Mosaic
         end
 
         def post(type, activity, &block)
-          xml = Builder::XmlMarkup.new
+          xml = Builder::XmlMarkup.new(:indent => 2)
           xml.instruct!
           xml.DATASET do
             xml.SITE_ID site_id
@@ -143,7 +155,7 @@ module Mosaic
           input = xml.target!
 
           request = Net::HTTP::Post.new("/API/mailing_list.html")
-          # $stderr.puts "REQUEST: type=#{type.inspect}, activity=#{activity.inspect}, input=#{input.inspect}"
+          logger.debug ">>>>> REQUEST:\ntype=#{type}\nactivity=#{activity}\ninput=#{input}\n>>>>>" if logger
           request.set_form_data('type' => type, 'activity' => activity, 'input' => input)
 
           conn = Net::HTTP.new(server, 443)
@@ -151,9 +163,10 @@ module Mosaic
           conn.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
           conn.start do |http|
+            # TODO: parse encoding from declaration? update declaration after conversion?
             reply = http.request(request).body
-            # $stderr.puts "REPLY: body=#{reply.inspect}"
-            document = Hpricot.XML reply
+            logger.debug ">>>>> REPLY:\n#{reply}\n>>>>>" if logger
+            document = Hpricot.XML(reply)
             raise Error, (document % '/DATASET/DATA').html unless document % '/DATASET/TYPE[text()=success]'
             document
           end

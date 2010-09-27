@@ -5,12 +5,21 @@ module Mosaic
     class Trigger < Object
       attr_reader :add,
                   :clickthru,
+                  :enabled,
                   :id,
                   :message,
+                  :message_id,
+                  :name,
                   :not_sent,
                   :recipients_data,
                   :sent,
-                  :subject
+                  :subject,
+                  :total_opened,
+                  :unique_bounced,
+                  :unique_click,
+                  :unique_opened,
+                  :unique_unsubscribed,
+                  :total_sent
 
       class << self
         def fire(id, *recipients)
@@ -43,6 +52,14 @@ module Mosaic
           end
         end
 
+        def query(what, options = {})
+          if what == :all
+            query_all(options)
+          else
+            query_one(what, options)
+          end
+        end
+
         def recipients_data_url(recipients_data)
           return if recipients_data.nil?
           return recipients_data if URI.parse(recipients_data).scheme
@@ -50,6 +67,40 @@ module Mosaic
           url.path = recipients_data
           url.to_s
         end
+
+      protected
+        def query_all(options)
+          reply = post('triggers', 'query-listdata') do |request|
+            request.MLID options[:list_id] if options[:list_id]
+          end
+          reply.search('/DATASET/RECORD').collect do |record|
+            new :id => get_integer_data(record, 'trigger_id'),
+                :name => get_data(record, 'trigger_name'),
+                :enabled => get_boolean_data(record, 'trigger_enabled', 'on')
+          end
+        end
+
+        def query_one(id, options)
+          reply = post('triggers', 'query-data-summary') do |request|
+            request.MLID options[:list_id] if options[:list_id]
+            put_extra_data(request, 'trigger_id', id)
+          end
+          record = reply.at('/DATASET/RECORD')
+          new :id => get_integer_data(record, 'trigger_id'),
+              :message_id => get_integer_data(record, 'message_id'),
+              :spam_complaints => get_integer_data(record, 'spam_complaints'),
+              :subject => get_data(record, 'message_subject'),
+              :total_opened => get_integer_data(record, 'total_opened'),
+              :total_sent => get_integer_data(record, 'total_sent'),
+              :unique_opened => get_integer_data(record, 'unique_opened'),
+              :unique_click => get_integer_data(record, 'unique_click'),
+              :unique_unsubscribed => get_integer_data(record, 'unique_unsubscribed'),
+              :unique_bounced => get_integer_data(record, 'unique_bounced')
+        end
+      end
+
+      def enabled?
+        enabled
       end
     end
   end
