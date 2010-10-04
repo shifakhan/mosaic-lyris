@@ -129,7 +129,7 @@ module Mosaic
         end
 
         def logger
-          @@logger
+          @@logger ||= RAILS_DEFAULT_LOGGER
         end
 
         def logger=(logger)
