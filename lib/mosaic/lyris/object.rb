@@ -1,7 +1,6 @@
 require 'builder'
 require 'net/https'
 require 'uri'
-require 'hpricot'
 
 module Mosaic
   module Lyris
