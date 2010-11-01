@@ -9,6 +9,7 @@ module Mosaic
                   :id,
                   :message,
                   :message_id,
+                  :message_text,
                   :name,
                   :not_sent,
                   :recipients_data,
@@ -35,6 +36,7 @@ module Mosaic
             put_extra_data(request, 'clickthru', 'on') if options[:clickthru]
             put_extra_data(request, 'add', 'yes') if options[:add]
             put_extra_data(request, 'message', options[:message])
+            put_extra_data(request, 'message_text', options[:message_text])
           end
           sent = get_data(reply.at('/DATASET'), 'sent') || ''
           not_sent = get_data(reply.at('/DATASET'), 'not sent') || ''
@@ -45,7 +47,7 @@ module Mosaic
           locale = options[:locale] || I18n.locale
           locale = locale.to_s
           key = key.to_s
-          if triggers[locale] && triggers[locale][key]
+          if triggers[locale].is_a?(Hash) && triggers[locale][key]
             triggers[locale][key]
           else
             triggers[key]

@@ -1,6 +1,7 @@
 require 'builder'
 require 'net/https'
 require 'uri'
+require 'htmlentities'
 
 module Mosaic
   module Lyris
@@ -8,6 +9,8 @@ module Mosaic
 
     class Object
       private_class_method :new
+
+      @@logger = nil
 
       def initialize(attributes)
         attributes.each do |attribute,value|
@@ -19,22 +22,34 @@ module Mosaic
         id && id.to_s
       end
 
+      class << self
+        def configuration
+          @@configuration ||= load_configuration
+        end
+
+        def configuration=(value)
+          @@configuration = value
+        end
+
+        def load_configuration
+          configuration = YAML.load_file(File.join(RAILS_ROOT,'config','lyris.yml')) rescue {}
+          configuration = configuration[RAILS_ENV] if configuration.include?(RAILS_ENV)
+          configuration
+        end
+      end
+
     protected
       class << self
         def callback_url
-          @@callback_url
-        end
-
-        def callback_url=(value)
-          @@callback_url = value && URI.parse(value)
+          configuration['callback_url']
         end
 
         def default_list_id
-          @@default_list_id
+          configuration['list_id']
         end
 
-        def default_list_id=(value)
-          @@default_list_id = value
+        def default_trigger_id
+          configuration['trigger_id']
         end
 
         def get_array_data(record, type)
@@ -136,11 +151,7 @@ module Mosaic
         end
 
         def password
-          @@password
-        end
-
-        def password=(value)
-          @@password = value
+          configuration['password']
         end
 
         def post(type, activity, &block)
@@ -194,27 +205,15 @@ module Mosaic
         end
 
         def server
-          @@server
-        end
-
-        def server=(value)
-          @@server = value
+          configuration['server']
         end
 
         def site_id
-          @@site_id
-        end
-
-        def site_id=(value)
-          @@site_id = value
+          configuration['site_id']
         end
 
         def triggers
-          @@triggers
-        end
-
-        def triggers=(value)
-          @@triggers = value
+          configuration['triggers']
         end
       end
     end
