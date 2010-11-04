@@ -7,6 +7,8 @@ module Mosaic
                   :clickthru,
                   :enabled,
                   :id,
+                  :from_email,
+                  :from_name,
                   :message,
                   :message_id,
                   :message_text,
@@ -37,6 +39,8 @@ module Mosaic
             put_extra_data(request, 'add', 'yes') if options[:add]
             put_extra_data(request, 'message', options[:message])
             put_extra_data(request, 'message_text', options[:message_text])
+            put_extra_data(request, 'from_email', options[:from_email])
+            put_extra_data(request, 'from_name', options[:from_name])
           end
           sent = get_data(reply.at('/DATASET'), 'sent') || ''
           not_sent = get_data(reply.at('/DATASET'), 'not sent') || ''
