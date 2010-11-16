@@ -69,7 +69,7 @@ module Mosaic
         def recipients_data_url(recipients_data)
           return if recipients_data.nil?
           return recipients_data if URI.parse(recipients_data).scheme
-          url = callback_url.dup
+          url = URI.parse(callback_url)
           url.path = recipients_data
           url.to_s
         end
