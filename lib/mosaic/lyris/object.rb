@@ -32,8 +32,8 @@ module Mosaic
         end
 
         def load_configuration
-          configuration = YAML.load_file(File.join(RAILS_ROOT,'config','lyris.yml')) rescue {}
-          configuration = configuration[RAILS_ENV] if configuration.include?(RAILS_ENV)
+          configuration = YAML.load_file(File.join(::Rails.root.to_s,'config','lyris.yml')) rescue {}
+          configuration = configuration[::Rails.env] if configuration.include?(::Rails.env)
           configuration
         end
       end
