@@ -17,6 +17,9 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.5}
   s.summary = %q{Lyris/EmailLabs API}
 
+  s.add_dependency('hpricot')
+  s.add_dependency('htmlentities')
+
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
