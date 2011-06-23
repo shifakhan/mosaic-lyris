@@ -29,7 +29,7 @@ module Mosaic
       lyris_options = {}
       lyris_options[:subject] = mail.subject
       lyris_options[:from_email] = mail.from
-      lyris_options[:from_name] = mail[:from].formatted#.friendly_from
+      lyris_options[:from_name] = mail[:from].formatted
       lyris_options[:clickthru] = true
       lyris_options[:message] = get_lyris_html(mail)
       lyris_options[:message_text] = get_lyris_text(mail)
@@ -72,6 +72,3 @@ module Mosaic
 end
 
 ActionMailer::Base::add_delivery_method :lyris, Mosaic::LyrisMailer
-
-#ActionMailer::Base.send :include, Mosaic::LyrisMailer
-#ActionMailer::Base.send :extend, ActionView::Helpers::SanitizeHelper::ClassMethods
