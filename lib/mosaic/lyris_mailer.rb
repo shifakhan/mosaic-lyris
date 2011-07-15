@@ -28,8 +28,8 @@ module Mosaic
     def get_lyris_options(mail)
       lyris_options = {}
       lyris_options[:subject] = mail.subject
-      lyris_options[:from_email] = mail.from
-      lyris_options[:from_name] = mail[:from].formatted
+      lyris_options[:from_email] = mail[:from].addresses.first
+      lyris_options[:from_name] = mail[:from].display_names.first
       lyris_options[:clickthru] = true
       lyris_options[:message] = get_lyris_html(mail)
       lyris_options[:message_text] = get_lyris_text(mail)
