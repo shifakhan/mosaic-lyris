@@ -50,7 +50,7 @@ module Mosaic
             end
             put_extra_data(request, 'validate', 'on') if options[:validate]
           end
-          new(options.merge(:id => reply.at('/DATASET/DATA').html, :email => options[:email], :file => file, :type => options[:type] || 'active'))
+          new(options.merge(:id => reply.at('/DATASET/DATA').inner_html, :email => options[:email], :file => file, :type => options[:type] || 'active'))
         end
 
         def build(record, options = {})

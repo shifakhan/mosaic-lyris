@@ -1,4 +1,4 @@
-gem 'hpricot'
+gem 'nokogiri'
 gem 'htmlentities'
 
 require 'lyris'

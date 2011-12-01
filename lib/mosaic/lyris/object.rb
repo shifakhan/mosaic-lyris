@@ -58,7 +58,7 @@ module Mosaic
               if block_given?
                 yield data
               else
-                data.html
+                data.inner_html
               end
             end
           end
@@ -74,7 +74,7 @@ module Mosaic
           xpath = "/DATA[@type='#{type}']"
           xpath << conditions.collect { |a,v| "[@#{a}='#{v}']" }.join
           if element = record.at(xpath)
-            data = attribute ? element[attribute] : element.html
+            data = attribute ? element[attribute] : element.inner_html
             # TODO: fix encoding if necessary... seems like we should need to convert to UTF-8 here, but this works for now
             HTMLEntities.new.decode(data.gsub(/&#(\d+);/) { Integer($1).chr })
           end
@@ -86,7 +86,7 @@ module Mosaic
         end
 
         def get_demographic_data(record)
-          if data = get_array_data(record, 'demographic') { |d| [ d[:id].to_i, d.html ] }
+          if data = get_array_data(record, 'demographic') { |d| [ d[:id].to_i, d.inner_html ] }
             data.inject({}) do |h,(k,v)|
               case h[k]
               when NilClass
@@ -104,7 +104,7 @@ module Mosaic
 
         def get_element(record, element)
           if data = record.at("/#{element}")
-            data.html
+            data.inner_html
           end
         end
 
@@ -176,8 +176,8 @@ module Mosaic
             # TODO: parse encoding from declaration? update declaration after conversion?
             reply = http.request(request).body
             logger.debug ">>>>> REPLY:\n#{reply}\n>>>>>" if logger
-            document = Hpricot.XML(reply)
-            raise Error, (document % '/DATASET/DATA').html unless document % '/DATASET/TYPE[text()=success]'
+            document = Nokogiri.XML(reply)
+            raise Error, (document % '/DATASET/DATA').inner_html unless document % "/DATASET/TYPE[.='success']"
             document
           end
         end

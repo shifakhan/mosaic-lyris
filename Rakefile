@@ -19,7 +19,7 @@ begin
     gemspec.email = "brent.faulkner@mosaic.com"
     # gemspec.homepage = "http://mosaic.com"
     gemspec.authors = ["S. Brent Faulkner"]
-    gemspec.add_dependency('hpricot', '>= 0.8.1')
+    gemspec.add_dependency('nokogiri')
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install jeweler"

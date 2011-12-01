@@ -27,7 +27,7 @@ module Mosaic
             put_extra_data(request, 'encoding', options[:encoding])
             put_extra_data(request, 'doubleoptin', 'yes') if options[:doubleoptin]
           end
-          new(options.merge(:id => reply.at('/DATASET/DATA').html, :email => email, :state => options[:state] || 'active', :trashed => %w(bounced unsubscribed trashed).include?(options[:state].to_s)))
+          new(options.merge(:id => reply.at('/DATASET/DATA').inner_html, :email => email, :state => options[:state] || 'active', :trashed => %w(bounced unsubscribed trashed).include?(options[:state].to_s)))
         end
 
         def query(what, options = {})
@@ -51,7 +51,7 @@ module Mosaic
             put_extra_data(request, 'encoding', options[:encoding])
           end
           # TODO: query full record? this is an incomplete snapshot of the updated record (ie. it only contains updated attributes/demographics)
-          new(options.merge(:id => reply.at('/DATASET/DATA').html, :email => options[:email] || email, :state => options[:state], :trashed => options[:state] && %w(bounced unsubscribed trashed).include?(options[:state].to_s)))
+          new(options.merge(:id => reply.at('/DATASET/DATA').inner_html, :email => options[:email] || email, :state => options[:state], :trashed => options[:state] && %w(bounced unsubscribed trashed).include?(options[:state].to_s)))
         end
 
       protected

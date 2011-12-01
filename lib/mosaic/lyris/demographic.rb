@@ -20,7 +20,7 @@ module Mosaic
             put_data(request, 'state', 'enabled') if options[:enabled]
             put_data(request, 'size', options[:size]) if options[:size]
           end
-          new(options.merge(:id => reply.at('/DATASET/DATA').html.to_i, :name => name, :type => type))
+          new(options.merge(:id => reply.at('/DATASET/DATA').inner_html.to_i, :name => name, :type => type))
         end
 
         def query(what, options = {})

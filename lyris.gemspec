@@ -17,20 +17,7 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.5}
   s.summary = %q{Lyris/EmailLabs API}
 
-  s.add_dependency('hpricot')
+  s.add_dependency('nokogiri')
   s.add_dependency('htmlentities')
-
-  if s.respond_to? :specification_version then
-    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
-    s.specification_version = 3
-
-    if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<hpricot>, [">= 0.8.1"])
-    else
-      s.add_dependency(%q<hpricot>, [">= 0.8.1"])
-    end
-  else
-    s.add_dependency(%q<hpricot>, [">= 0.8.1"])
-  end
 end
 

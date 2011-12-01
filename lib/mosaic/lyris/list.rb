@@ -36,7 +36,7 @@ module Mosaic
             put_data(request, 'name', name)
             put_extra_data(request, 'CLICKTHRU_URL', attributes[:clickthru_url])
           end
-          new attributes.merge(:id => reply.at('/DATASET/DATA').html.to_i, :name => name)
+          new attributes.merge(:id => reply.at('/DATASET/DATA').inner_html.to_i, :name => name)
         end
 
         def delete(id)
