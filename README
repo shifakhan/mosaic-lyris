@@ -4,5 +4,9 @@ Install Lyris as a gem in Rails > 3 Apps
 
 2. Add gem 'lyris', '0.9.1', :to => "vendor/gems"
 
-3. Restart App and it should be working. If you are getting an error about Nokogiri then add:
+3. clone this repository in 'vendor/gems/lyris'
+
+4. bundle install
+
+5. Restart App and it should be working. If you are getting an error about Nokogiri then add:
  gem 'nokogiri' in your Gemfile.
