@@ -1,15 +1,8 @@
 module Mosaic
-  class LyrisMailer
+  module LyrisMailer
     include ActionView::Helpers::TagHelper
     include ActionView::Helpers::TextHelper
     include ActionView::Helpers::SanitizeHelper
-
-    def initialize(values = {})
-    end
-
-    def deliver!(mail)
-      perform_delivery_lyris(mail)
-    end
 
   private
     def get_lyris_html(mail)
@@ -69,6 +62,21 @@ module Mosaic
     end
   end
 
+  class LyrisDeliveryMethod
+    include LyrisMailer
+
+    def initialize(values = {})
+    end
+
+    def deliver!(mail)
+      perform_delivery_lyris(mail)
+    end
+  end
 end
 
-ActionMailer::Base::add_delivery_method :lyris, Mosaic::LyrisMailer
+if ActionMailer::Base.respond_to?(:add_delivery_method)
+  ActionMailer::Base::add_delivery_method :lyris, Mosaic::LyrisDeliveryMethod
+else
+  ActionMailer::Base.send :include, Mosaic::LyrisMailer
+  ActionMailer::Base.send :extend, ActionView::Helpers::SanitizeHelper::ClassMethods
+end
