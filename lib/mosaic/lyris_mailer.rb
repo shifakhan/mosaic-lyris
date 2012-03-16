@@ -5,6 +5,24 @@ module Mosaic
     include ActionView::Helpers::SanitizeHelper
 
   private
+    if ActionMailer::Base.respond_to?(:add_delivery_method)
+      def friendly_from_for(mail)
+        mail[:from].display_names.first
+      end
+
+      def from_for(mail)
+        mail[:from].addresses.first
+      end
+    else
+      def friendly_from_for(mail)
+        mail.friendly_from
+      end
+
+      def from_for(mail)
+        mail.from
+      end
+    end
+
     def get_lyris_html(mail)
       if mail.multipart?
         get_part_body(mail, 'text/html') || simple_format(get_part_body(mail, 'text/plain'))
@@ -21,8 +39,8 @@ module Mosaic
     def get_lyris_options(mail)
       lyris_options = {}
       lyris_options[:subject] = mail.subject
-      lyris_options[:from_email] = mail[:from].addresses.first
-      lyris_options[:from_name] = mail[:from].display_names.first
+      lyris_options[:from_email] = from_for(mail)
+      lyris_options[:from_name] = friendly_from_for(mail)
       lyris_options[:clickthru] = true
       lyris_options[:message] = get_lyris_html(mail)
       lyris_options[:message_text] = get_lyris_text(mail)
@@ -61,20 +79,22 @@ module Mosaic
       # raise "triggered email not sent" unless trigger.sent.include?(email)
     end
   end
-
-  class LyrisDeliveryMethod
-    include LyrisMailer
-
-    def initialize(values = {})
-    end
-
-    def deliver!(mail)
-      perform_delivery_lyris(mail)
-    end
-  end
 end
 
 if ActionMailer::Base.respond_to?(:add_delivery_method)
+  module Mosaic
+    class LyrisDeliveryMethod
+      include LyrisMailer
+
+      def initialize(values = {})
+      end
+
+      def deliver!(mail)
+        perform_delivery_lyris(mail)
+      end
+    end
+  end
+
   ActionMailer::Base::add_delivery_method :lyris, Mosaic::LyrisDeliveryMethod
 else
   ActionMailer::Base.send :include, Mosaic::LyrisMailer
