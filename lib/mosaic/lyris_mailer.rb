@@ -49,11 +49,11 @@ module Mosaic
 
     def get_lyris_text(mail)
       if mail.multipart?
-        get_part_body(mail, 'text/plain') || strip_tags(get_part_body(mail, 'text/html'))
+        get_part_body(mail, 'text/plain') || ActionController::Base.helpers.strip_tags(get_part_body(mail, 'text/html'))
       elsif mail.content_type.start_with? 'text/plain'
         mail.body.to_s
       elsif mail.content_type.start_with? 'text/html'
-        strip_tags(get_part_body(mail, 'text/html'))
+        ActionController::Base.helpers.strip_tags(get_part_body(mail, 'text/html'))
       else
         raise TypeError, "unable to retrieve text/plain for content type (#{mail.content_type})"
       end
