@@ -13,7 +13,7 @@ Rake::Task[:test].comment = "Run all tests"
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gemspec|
-    gemspec.name = "lyris"
+    gemspec.name = "mosaic-lyris"
     gemspec.summary = "Lyris/EmailLabs API"
     gemspec.description = "A wrapper for the Lyris/EmailLabs API to simplify integration"
     gemspec.email = "brent.faulkner@mosaic.com"
