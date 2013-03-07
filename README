@@ -1,4 +1,4 @@
 
-    gem 'lyris', '~> 1.0.0'
+    gem 'mosaic-lyris', '~> 1.0.0'
     bundle
 
