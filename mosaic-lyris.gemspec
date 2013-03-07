@@ -4,14 +4,14 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{mosaic-lyris}
+  s.name = "mosaic-lyris"
   s.version = "1.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["S. Brent Faulkner"]
-  s.date = %q{2013-03-07}
-  s.description = %q{A wrapper for the Lyris/EmailLabs API to simplify integration}
-  s.email = %q{brent.faulkner@mosaic.com}
+  s.date = "2013-03-07"
+  s.description = "A wrapper for the Lyris/EmailLabs API to simplify integration"
+  s.email = "brent.faulkner@mosaic.com"
   s.extra_rdoc_files = [
     "README"
   ]
@@ -71,72 +71,41 @@ Gem::Specification.new do |s|
     "test/test_helper.rb",
     "test/trigger_test.rb"
   ]
-  s.homepage = %q{http://github.com/mosaicxm/mosaic-lyris}
+  s.homepage = "http://github.com/mosaicxm/mosaic-lyris"
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.6}
-  s.summary = %q{Lyris/EmailLabs API}
+  s.rubygems_version = "1.8.23"
+  s.summary = "Lyris/EmailLabs API"
 
   if s.respond_to? :specification_version then
-    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
-    if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
+    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<mosaic-lyris>, [">= 0"])
-      s.add_development_dependency(%q<jeweler>, [">= 0"])
-      s.add_development_dependency(%q<jeweler>, [">= 0"])
-      s.add_development_dependency(%q<mocha>, [">= 0"])
-      s.add_development_dependency(%q<mocha>, [">= 0"])
-      s.add_development_dependency(%q<mocha>, [">= 0"])
-      s.add_development_dependency(%q<mocha>, [">= 0"])
-      s.add_development_dependency(%q<mocha>, [">= 0"])
-      s.add_development_dependency(%q<mocha>, [">= 0"])
-      s.add_development_dependency(%q<mocha>, [">= 0"])
-      s.add_development_dependency(%q<mocha>, [">= 0"])
-      s.add_development_dependency(%q<mocha>, [">= 0"])
       s.add_runtime_dependency(%q<builder>, [">= 0"])
       s.add_runtime_dependency(%q<active_support>, [">= 0"])
       s.add_runtime_dependency(%q<htmlentities>, [">= 0"])
       s.add_runtime_dependency(%q<nokogiri>, [">= 0"])
       s.add_runtime_dependency(%q<tzinfo>, [">= 0"])
+      s.add_development_dependency(%q<jeweler>, [">= 0"])
       s.add_development_dependency(%q<mocha>, [">= 0"])
     else
       s.add_dependency(%q<mosaic-lyris>, [">= 0"])
-      s.add_dependency(%q<jeweler>, [">= 0"])
-      s.add_dependency(%q<jeweler>, [">= 0"])
-      s.add_dependency(%q<mocha>, [">= 0"])
-      s.add_dependency(%q<mocha>, [">= 0"])
-      s.add_dependency(%q<mocha>, [">= 0"])
-      s.add_dependency(%q<mocha>, [">= 0"])
-      s.add_dependency(%q<mocha>, [">= 0"])
-      s.add_dependency(%q<mocha>, [">= 0"])
-      s.add_dependency(%q<mocha>, [">= 0"])
-      s.add_dependency(%q<mocha>, [">= 0"])
-      s.add_dependency(%q<mocha>, [">= 0"])
       s.add_dependency(%q<builder>, [">= 0"])
       s.add_dependency(%q<active_support>, [">= 0"])
       s.add_dependency(%q<htmlentities>, [">= 0"])
       s.add_dependency(%q<nokogiri>, [">= 0"])
       s.add_dependency(%q<tzinfo>, [">= 0"])
+      s.add_dependency(%q<jeweler>, [">= 0"])
       s.add_dependency(%q<mocha>, [">= 0"])
     end
   else
     s.add_dependency(%q<mosaic-lyris>, [">= 0"])
-    s.add_dependency(%q<jeweler>, [">= 0"])
-    s.add_dependency(%q<jeweler>, [">= 0"])
-    s.add_dependency(%q<mocha>, [">= 0"])
-    s.add_dependency(%q<mocha>, [">= 0"])
-    s.add_dependency(%q<mocha>, [">= 0"])
-    s.add_dependency(%q<mocha>, [">= 0"])
-    s.add_dependency(%q<mocha>, [">= 0"])
-    s.add_dependency(%q<mocha>, [">= 0"])
-    s.add_dependency(%q<mocha>, [">= 0"])
-    s.add_dependency(%q<mocha>, [">= 0"])
-    s.add_dependency(%q<mocha>, [">= 0"])
     s.add_dependency(%q<builder>, [">= 0"])
     s.add_dependency(%q<active_support>, [">= 0"])
     s.add_dependency(%q<htmlentities>, [">= 0"])
     s.add_dependency(%q<nokogiri>, [">= 0"])
     s.add_dependency(%q<tzinfo>, [">= 0"])
+    s.add_dependency(%q<jeweler>, [">= 0"])
     s.add_dependency(%q<mocha>, [">= 0"])
   end
 end
