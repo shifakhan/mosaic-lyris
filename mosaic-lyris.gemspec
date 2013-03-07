@@ -33,7 +33,7 @@ Gem::Specification.new do |s|
     "lib/mosaic/lyris/trigger.rb",
     "lib/mosaic/lyris/upload.rb",
     "lib/mosaic/lyris_mailer.rb",
-    "lyris.gemspec",
+    "mosaic-lyris.gemspec",
     "test/demographic_test.rb",
     "test/filter_test.rb",
     "test/http_responder.rb",
@@ -71,6 +71,7 @@ Gem::Specification.new do |s|
     "test/test_helper.rb",
     "test/trigger_test.rb"
   ]
+  s.homepage = %q{http://github.com/mosaicxm/mosaic-lyris}
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.6}
   s.summary = %q{Lyris/EmailLabs API}
@@ -80,18 +81,18 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<lyris>, [">= 0"])
+      s.add_runtime_dependency(%q<mosaic-lyris>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, [">= 0"])
       s.add_runtime_dependency(%q<nokogiri>, [">= 0"])
     else
-      s.add_dependency(%q<lyris>, [">= 0"])
+      s.add_dependency(%q<mosaic-lyris>, [">= 0"])
       s.add_dependency(%q<jeweler>, [">= 0"])
       s.add_dependency(%q<jeweler>, [">= 0"])
       s.add_dependency(%q<nokogiri>, [">= 0"])
     end
   else
-    s.add_dependency(%q<lyris>, [">= 0"])
+    s.add_dependency(%q<mosaic-lyris>, [">= 0"])
     s.add_dependency(%q<jeweler>, [">= 0"])
     s.add_dependency(%q<jeweler>, [">= 0"])
     s.add_dependency(%q<nokogiri>, [">= 0"])

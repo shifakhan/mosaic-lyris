@@ -17,7 +17,7 @@ begin
     gemspec.summary = "Lyris/EmailLabs API"
     gemspec.description = "A wrapper for the Lyris/EmailLabs API to simplify integration"
     gemspec.email = "brent.faulkner@mosaic.com"
-    # gemspec.homepage = "http://mosaic.com"
+    gemspec.homepage = "http://github.com/mosaicxm/mosaic-lyris"
     gemspec.authors = ["S. Brent Faulkner"]
     gemspec.add_dependency('nokogiri')
   end
