@@ -124,7 +124,9 @@ module Mosaic
 
         def get_time_data(record, type, attribute = nil, conditions = {})
           if data = get_data(record, type, attribute, conditions)
-            Time.parse(data) + (Time.zone.utc_offset - Time.zone_offset('PST'))
+            Time.use_zone('Pacific Time (US & Canada)') do
+              Time.zone.parse(data)
+            end
           end
         end
 
