@@ -19,7 +19,12 @@ begin
     gemspec.email = "brent.faulkner@mosaic.com"
     gemspec.homepage = "http://github.com/mosaicxm/mosaic-lyris"
     gemspec.authors = ["S. Brent Faulkner"]
+    gemspec.add_dependency('builder')
+    gemspec.add_dependency('active_support')
+    gemspec.add_dependency('htmlentities')
     gemspec.add_dependency('nokogiri')
+    gemspec.add_dependency('tzinfo')
+    gemspec.add_development_dependency('mocha')
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install jeweler"

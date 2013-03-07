@@ -1,7 +1,11 @@
 require 'builder'
 require 'net/https'
+require 'nokogiri'
 require 'uri'
 require 'htmlentities'
+
+require 'active_support/core_ext/object/blank'
+require 'active_support/core_ext/time/calculations'
 
 module Mosaic
   module Lyris
@@ -53,8 +57,8 @@ module Mosaic
         end
 
         def get_array_data(record, type)
-          if record.at("/DATA[@type='#{type}']")
-            record.search("/DATA[@type='#{type}']").collect do |data|
+          if record.at("DATA[@type='#{type}']")
+            record.search("DATA[@type='#{type}']").collect do |data|
               if block_given?
                 yield data
               else
@@ -71,7 +75,7 @@ module Mosaic
         end
 
         def get_data(record, type, attribute = nil, conditions = {})
-          xpath = "/DATA[@type='#{type}']"
+          xpath = "DATA[@type='#{type}']"
           xpath << conditions.collect { |a,v| "[@#{a}='#{v}']" }.join
           if element = record.at(xpath)
             data = attribute ? element[attribute] : element.inner_html
