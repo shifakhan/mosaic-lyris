@@ -1,4 +1,5 @@
 require 'net/http'
+require 'cgi'
 
 module Net
   class HTTPOK
@@ -81,7 +82,7 @@ module Net
       end
 
       def urldecode(str)
-        str.gsub(/%([0-9a-f]{2})/) { |s| $1.hex.chr }
+        CGI.unescape(str)
       end
     end
   end
