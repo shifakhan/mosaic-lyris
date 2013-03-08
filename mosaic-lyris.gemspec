@@ -21,7 +21,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_runtime_dependency "builder", [">= 0"]
-  gem.add_runtime_dependency "active_support", [">= 0"]
+  gem.add_runtime_dependency "activesupport", [">= 0"]
   gem.add_runtime_dependency "htmlentities", [">= 0"]
   gem.add_runtime_dependency "nokogiri", [">= 0"]
   gem.add_runtime_dependency "tzinfo", [">= 0"]
