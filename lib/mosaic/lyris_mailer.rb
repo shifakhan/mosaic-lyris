@@ -92,6 +92,11 @@ if ActionMailer::Base.respond_to?(:add_delivery_method)
       def deliver!(mail)
         perform_delivery_lyris(mail)
       end
+
+      # ActionMailer expects this method to be present and to return a hash.
+      def settings
+        {}
+      end
     end
   end
 
